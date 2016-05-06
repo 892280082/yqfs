@@ -1,0 +1,26 @@
+{
+  "name": "yqfs",
+  "version": "1.0.0",
+  "description": "yq-fs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://892280082:a19921129zpf@github.com/892280082/yqfs.git"
+  },
+  "keywords": [
+    "fs"
+  ],
+  "author": "yeqin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/892280082/yqfs/issues"
+  },
+  "homepage": "https://github.com/892280082/yqfs#readme",
+  "dependencies": {
+    "underscore": "^1.8.3",
+    "yqthen": "^1.1.0"
+  }
+}
