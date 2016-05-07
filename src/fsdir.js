@@ -8,6 +8,7 @@
 3.removeDir						删除文件夹
 4.dirExists						判断文件夹是否存在
 5.getDirRecurFiles				递归读取目录下所有的文件
+6.removeDirAllFile				删除目录下的文件，目录不存在抛出异常				
 
 
 */
@@ -92,4 +93,34 @@ exports.dirExists = (path,callback)=>{
 */
 exports.getDirRecurFiles = AsyncRecursearchDir;
 
+/**
+*@param _path {String} -目录
+*@param callback {Function} -回调函数 call(err);
+*/
+exports.removeDirAllFile = (_path,callback)=>{
+	then((next)=>{
+		exports.dirExists(_path,(err,is)=>{
+			if(err)
+				return next(err);
+			if(!is)
+				return next('文件不存在');
+			next();
+		});
+	}).then((next)=>{
+		fs.readdir(_path,(err,files)=>{
+			if(files.length === 0)
+				return callback(null);
+
+			next(err,files);
+		});
+	}).each((next,value)=>{
+		fs.unlink(path.join(_path,value),(err)=>{
+			next(err);
+		});
+	}).then((next)=>{
+		callback(null);
+	}).fail((next,err)=>{
+		callback(err);
+	});
+};
 
