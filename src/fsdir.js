@@ -30,7 +30,7 @@ exports.checkAndCreateDir = (path,callback)=>{
 				return callback(err);
 
 			if(is){
-					return callback(null,'目录已存在');
+					return callback(null,true);
 			}else{
 				next();
 			}
@@ -38,7 +38,7 @@ exports.checkAndCreateDir = (path,callback)=>{
 
 	}).then((next)=>{
 		fs.mkdir(path,(err)=>{
-			callback(err);
+			callback(err,false);
 		});
 	}).fail((next,err)=>{
 		console.log("ERROR:"+path+"目录创建失败",err);
