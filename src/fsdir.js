@@ -78,7 +78,7 @@ exports.dirExists = (path,callback)=>{
 			return callback(null,false);
 		fs.lstat(path,(err,state)=>{
 			if(err)
-				return next(err);
+				return callback(err);
 			if(state.isDirectory()){
 				return callback(null,true);
 			}
@@ -87,11 +87,24 @@ exports.dirExists = (path,callback)=>{
 	});
 };
 
+
 /**
 *@parm path {String} -路径
 *@param callback {Function} -回调函数  -call(err,files) `files` 文件数组
 */
-exports.getDirRecurFiles = AsyncRecursearchDir;
+exports.getDirRecurFiles = (path,callback)=>{
+	exports.dirExists(path,(err,is)=>{
+		if(err)
+			return callback(err);
+
+		if(!is)
+			return callback('ERROR:'+path+'路径不存在');
+		
+		AsyncRecursearchDir(path,callback);
+
+	});
+};
+
 
 /**
 *@param _path {String} -目录
